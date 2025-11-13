@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
             title: 'Berhasil!',
             text: '{{ session('success') }}',
             showConfirmButton: false,
-            timer: 100,
+            timer: 500,
             timerProgressBar: true,
         });
     });

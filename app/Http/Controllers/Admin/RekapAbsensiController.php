@@ -58,14 +58,14 @@ class RekapAbsensiController extends Controller
         ->exists();
 
     if ($rekapSudahAda) {
-        // ⚠️ Jika sudah ada, tampilkan pesan dan hentikan proses
+        //  Jika sudah ada, tampilkan pesan dan hentikan proses
         return redirect()->route('admin.rekap.index', [
             'bulan' => $bulan,
             'tahun' => $tahun,
         ])->with('warning', 'Rekap absensi bulan ini sudah diisi sebelumnya.');
     }
 
-    // 🔁 Jika belum ada, lanjut buat rekap
+    //  Jika belum ada, lanjut buat rekap
     $anggotaList = Anggota::where('eskul_id', $eskulId)->get();
 
     foreach ($anggotaList as $a) {

@@ -41,10 +41,12 @@ class JadwalEskulController extends Controller
                 $q->where('waktu_mulai', '<', $selesai)
                   ->where('waktu_selesai', '>', $mulai);
             })
-            ->exists();
+            ->with('eskul')
+            ->first();
 
         if ($adaBentrok) {
-            return redirect()->back()->with('error', 'Jadwal bentrok dengan eskul lain!');
+            $namaEskul = $adaBentrok->eskul->nama_eskul;
+            return redirect()->back()->with('error', "Jadwal bentrok dengan eskul $namaEskul ! , Coba Hubungi Pembina Eskul $namaEskul");
         }
 
         JadwalEskul::create([
