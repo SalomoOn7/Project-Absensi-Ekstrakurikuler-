@@ -15,9 +15,18 @@ class JadwalEskulController extends Controller
     public function index()
     {
         $eskulId = Auth::user()->eskul_id;
-        $jadwals = JadwalEskul::where('eskul_id', $eskulId)->get();
+        $jadwals = JadwalEskul::with('eskul')
+        ->where('eskul_id', $eskulId)
+        ->orderBy('hari')
+        ->orderBy('waktu_mulai')
+        ->get();
+        
+         $semuaJadwal = JadwalEskul::with('eskul')
+        ->orderBy('hari')
+        ->orderBy('waktu_mulai')
+        ->get();
 
-        return view('admin.jadwal.index', compact('jadwals'));
+        return view('admin.jadwal.index', compact('jadwals', 'eskulId', 'semuaJadwal'));
     }
 
     /**
@@ -35,7 +44,7 @@ class JadwalEskulController extends Controller
         $mulai = $request->waktu_mulai;
         $selesai = $request->waktu_selesai;
 
-        // 🔍 Cek apakah jadwal bentrok dengan eskul lain
+        //  Cek apakah jadwal bentrok dengan eskul lain
         $adaBentrok = JadwalEskul::where('hari', $hari)
             ->where(function ($q) use ($mulai, $selesai) {
                 $q->where('waktu_mulai', '<', $selesai)
@@ -46,7 +55,7 @@ class JadwalEskulController extends Controller
 
         if ($adaBentrok) {
             $namaEskul = $adaBentrok->eskul->nama_eskul;
-            return redirect()->back()->with('error', "Jadwal bentrok dengan eskul $namaEskul ! , Coba Hubungi Pembina Eskul $namaEskul");
+            return redirect()->back()->with('error', "Jadwal bentrok dengan eskul $namaEskul!, Coba Hubungi Pembina Eskul $namaEskul");
         }
 
         JadwalEskul::create([
