@@ -1,107 +1,158 @@
 # Project Absensi Ekstrakurikuler
 
-Sistem informasi absensi ekstrakurikuler berbasis web untuk membantu pengelolaan kehadiran siswa pada kegiatan ekstrakurikuler secara lebih efisien dan terorganisir.
+Web-based extracurricular attendance management system built to help schools manage extracurricular data, member attendance, training schedules, and monthly attendance reports efficiently.
 
-## 📌 Fitur Utama
+## 📌 Features
 
-- Login multi-user
-- Dashboard admin
-- Manajemen data siswa
-- Manajemen data ekstrakurikuler
-- Absensi kehadiran siswa
-- Rekap data absensi
-- CRUD data pengguna
-- Logout system
+### Super Admin
+- CRUD Data Ekstrakurikuler
+- CRUD Akun Admin
+- Rekap Absensi Ekstrakurikuler per Bulan
+
+### Admin
+- CRUD Akun Petugas
+- CRUD Data Anggota
+- CRUD Jadwal Latihan
+- Rekap Absensi Bulanan
+
+### Petugas
+- Manajemen Absensi Anggota
+  - Input kehadiran anggota sesuai ekstrakurikuler
+  - Input absensi berdasarkan jadwal latihan
 
 ## 🛠️ Tech Stack
 
-- **Backend:** PHP Native
-- **Frontend:** HTML, CSS, JavaScript
-- **Framework CSS:** Tailwind CSS
+- **Framework:** Laravel
+- **Authentication:** Laravel Breeze
 - **Database:** MySQL
+- **Frontend:** Blade Template
+- **Styling:** Tailwind CSS
 
-## 📂 Struktur Folder
+## 📂 Project Structure
 
 ```bash
 Project-Absensi-Ekstrakurikuler/
 │
-├── admin/
-├── user/
-├── assets/
-│   ├── css/
-│   ├── js/
-│   └── images/
-├── config/
+├── app/
 ├── database/
-└── index.php
+├── public/
+├── resources/
+│   ├── views/
+│   ├── css/
+│   └── js/
+├── routes/
+├── storage/
+└── artisan
 ```
 
-## ⚙️ Instalasi
+## ⚙️ Installation
 
-### 1. Clone repository
+### 1. Clone Repository
 ```bash
 git clone https://github.com/SalomoOn7/Project-Absensi-Ekstrakurikuler-.git
 ```
 
-### 2. Masuk ke folder project
+### 2. Move to Project Directory
 ```bash
 cd Project-Absensi-Ekstrakurikuler-
 ```
 
-### 3. Import database
-- Buka **phpMyAdmin**
-- Buat database baru, misalnya:
-
-```sql
-db_absensi_ekstrakurikuler
+### 3. Install Dependencies
+```bash
+composer install
+npm install
 ```
 
-- Import file SQL yang tersedia pada folder database.
-
-### 4. Jalankan project
-Pastikan kamu sudah menjalankan:
-
-- Apache
-- MySQL
-
-melalui **XAMPP** atau software sejenis.
-
-Akses project di browser:
+### 4. Environment Setup
+Copy `.env.example` to `.env`
 
 ```bash
-http://localhost/Project-Absensi-Ekstrakurikuler-
+cp .env.example .env
 ```
 
-## 👤 Role User
+Generate application key:
 
-### Admin
-- Mengelola data siswa
-- Mengelola data ekstrakurikuler
-- Mengelola absensi
-- Melihat laporan absensi
+```bash
+php artisan key:generate
+```
 
-### User/Siswa
-- Login
-- Melihat data absensi pribadi
+### 5. Configure Database
+Set database credentials in `.env`
 
-## 📸 Screenshot
+```env
+DB_DATABASE=db_absensi_eskul
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-Tambahkan screenshot project di sini.
+Run migration:
+
+```bash
+php artisan migrate
+```
+
+### 6. Run Development Server
+```bash
+php artisan serve
+npm run dev
+```
+
+Access application:
+
+```bash
+http://127.0.0.1:8000
+```
+
+## 👥 User Roles
+
+| Role | Access |
+|---|---|
+| Super Admin | Full system management |
+| Admin | Operational management |
+| Petugas | Attendance management |
+
+## 📊 Workflow
+
+1. Super Admin manages extracurricular data and admin accounts.
+2. Admin manages officers, members, and training schedules.
+3. Petugas records attendance based on schedules.
+4. System generates monthly attendance reports.
+
+## 📸 Screenshots
 
 ```md
-![Dashboard](assets/images/dashboard.png)
+![Login](public/images/login.png)
+![Dashboard](public/images/dashboard.png)
 ```
 
 ## 🚀 Future Improvements
 
-- Export laporan PDF
+- Export report to PDF/Excel
+- Attendance statistics dashboard
 - QR Code attendance
-- Notifikasi absensi
-- Grafik statistik kehadiran
+- Notification reminder
 
-## 📄 License
+## Demo Account
 
-Project ini dibuat untuk kebutuhan pembelajaran dan pengembangan pribadi.
+Use the following accounts to test each user role:
+
+### Super Admin
+```bash
+Username: superadmin
+Password: superadmin123
+```
+
+### Admin
+```bash
+Email: admin321
+Password: admin123
+```
+
+### Petugas
+```bash
+Email: petugas123
+Password: petugas321
+```
 
 ## 👨‍💻 Author
 
